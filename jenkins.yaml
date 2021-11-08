@@ -1,0 +1,508 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - fileSystemServiceAccountCredential:
+          id: "95e1f8c6-e873-4b60-af52-ed21d28c7cb4"
+          scope: GLOBAL
+      - vaultKubernetesCredential:
+          description: "Jenkins service token "
+          id: "k8s-default-token"
+          mountPath: " kubernetes-build-1"
+          role: "jenkins"
+          scope: GLOBAL
+      - string:
+          id: "SONARQUBE_1"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAw6fr7aoqVOmIerrhDFOrb9w0LlYZUX6zLR4Tq5+ks2DyOiwGeucJPD1iJvgoKEwOiXja6IJnwf25ThjlpzKLi4A==}"
+      - usernamePassword:
+          id: "ARTIFACTORY-1-JENKINS"
+          password: "{AQAAABAAAAAQjH9XxHE8Aj92S3ULAMhBDZZKCP2MWPMpMvgMVBkE+ic=}"
+          scope: GLOBAL
+          username: "jenkins"
+          usernameSecret: true
+      - basicSSHUserPrivateKey:
+          id: "bitbucket-ssh-access"
+          privateKeySource:
+            directEntry:
+              privateKey: "{AQAAABAAAAFwHblYDew/xZrHhfcCqLh74pQM8sMAqBPjaX6WYE3SCM+Z2HaakakRozm2l9e1dtRk51HtKugGh6i5S74Icr3gTuVdeky3EmT92pLploer4Oerbtl4QgvPQC6C8xYpSjCDtTEyXP7GTRMegK+D5kLsbOFYU2S2qKsoiBNocHPnLxbacjR7QyNx2UI2fWKX+u2zCodKFV5talw1M+P2RvHdcgxZhTpebOitwkDTKNRcQ6BrZalJd3yhqzGk2oTjfwQ38jOU/LRdYe5KAkyWvi3QK0SvUD/N6SBFZQlVTB7QF4L6JZClRkjZM7k4484RJjqBY7p8YWEk5V/mWH5Vw4033Kl/5XRJjIUxcN/4fesCmICrd7hClLjUfjTYfXVafk91RMbgjqlzOpE+BxEykhTnboRgIkp0V3OQV2qQi6+asqXj+c+MiKPYr0PgeKmZyoCLe/Kv2MaubFLqL39WF21Cn+3jCKFD98UTAGIYvRj7Yaca26tx0H7HH6zWU4GQud3L}"
+          scope: GLOBAL
+          username: "git"
+          usernameSecret: true
+      - file:
+          description: "ssh-key-shanti"
+          fileName: "id_rsa_dltapps"
+          id: "ssh-key-shanti"
+          scope: GLOBAL
+          secretBytes: "{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}"
+      - basicSSHUserPrivateKey:
+          id: "gs"
+          privateKeySource:
+            directEntry:
+              privateKey: "{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}"
+          scope: GLOBAL
+          username: "git"
+          usernameSecret: true
+      - usernamePassword:
+          description: "XiloGlobalDocker"
+          id: "XiloGlobalDocker"
+          password: "{AQAAABAAAAAwoUibNhDqBs1UjYok5HNb1xqK2Ho5Z3doeWOdcpu7Bw3Wdc9jUDX3X0lu0O7eEgvKpc2RRkf7FG+NFskRrMri8Q==}"
+          scope: GLOBAL
+          username: "dltapps"
+          usernameSecret: true
+      - defaultSnykApiToken:
+          description: "jenkins-snyk-token"
+          id: "jenkins-snyk-token"
+          scope: GLOBAL
+          token: "{AQAAABAAAAAwVhaffhzjOor0UuPOzthYvPIMI4S+Yq/9R5CnGPh6RK9h7OFwJbr41gbokbrpuChhXopIlsnQOaabepuHIGHJFA==}"
+      - usernamePassword:
+          id: "bitbucket-oauth-creds"
+          password: "{AQAAABAAAAAwDEyB/zyCLOWjLxko365k6Cc71kwmA8qz0B+SVVfoVpLNksJdAYTb5XkoXEqIBxEjZ4xI6jIWMMrq2rBne07pCA==}"
+          scope: GLOBAL
+          username: "QhdHAxb3RnDL5cF8ex"
+          usernameSecret: true
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    azureAdMatrix:
+      permissions:
+      - "Job/Build:authenticated"
+      - "Job/Cancel:authenticated"
+      - "Job/Configure:authenticated"
+      - "Job/Read:authenticated"
+      - "Job/Workspace:authenticated"
+      - "Overall/Administer:8e07a985-3d8e-44c7-97e0-df8e90561073"
+      - "Overall/Administer:DLT_Shared_Services_PrivUser (ed73e2fd-976c-422b-9988-5198f9e491d8)"
+      - "Overall/Read:8e07a985-3d8e-44c7-97e0-df8e90561073"
+      - "Overall/Read:authenticated"
+      - "Overall/SystemRead:8e07a985-3d8e-44c7-97e0-df8e90561073"
+      - "Overall/SystemRead:authenticated"
+      - "View/Read:authenticated"
+  clouds:
+  - kubernetes:
+      containerCap: 10
+      containerCapStr: "10"
+      jenkinsTunnel: "jenkins-1-agent.jenkins.svc.cluster.local:50000"
+      name: "kubernetes"
+      namespace: "jenkins"
+      serverUrl: "https://kubernetes.default"
+      skipTlsVerify: true
+      templates:
+      - containers:
+        - image: "artifactory.build.dlt/docker-local/jenkins-slave-dind:4.7-6"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          privileged: true
+          resourceLimitMemory: "4Gi"
+          resourceRequestCpu: "200m"
+          resourceRequestMemory: "4Gi"
+          ttyEnabled: true
+          workingDir: "/home/jenkins/agent"
+        id: "a2ed1aab-7597-4656-bbb5-b375841a3e0f"
+        idleMinutes: 120
+        idleMinutesStr: "120"
+        label: "default"
+        name: "default"
+        namespace: "jenkins"
+        serviceAccount: "jenkins-1"
+        showRawYaml: false
+        slaveConnectTimeout: 100
+        slaveConnectTimeoutStr: "100"
+        volumes:
+        - emptyDirVolume:
+            memory: false
+            mountPath: "/var/lib/docker"
+        yamlMergeStrategy: "override"
+      - containers:
+        - image: "artifactory.build.dlt/docker-local/jenkins-slave-dind:4.10-3"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          privileged: true
+          ttyEnabled: true
+          workingDir: "/home/jenkins/agent"
+        id: "3a419c9a-4e9d-4d10-a0c6-c053a6b53a5b"
+        idleMinutes: 120
+        idleMinutesStr: "120"
+        label: "aws"
+        name: "aws"
+        namespace: "jenkins"
+        serviceAccount: "jenkins-1-slave-aws"
+        volumes:
+        - emptyDirVolume:
+            memory: false
+            mountPath: "/var/lib/docker"
+        yamlMergeStrategy: "merge"
+      - containers:
+        - envVars:
+          - envVar:
+              key: "JAVA_OPTS"
+              value: "-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=900"
+          image: "artifactory.build.dlt/docker-local/jenkins-slave-dind:4.7-6"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          privileged: true
+          resourceLimitMemory: "8Gi"
+          resourceRequestCpu: "200m"
+          resourceRequestMemory: "8Gi"
+          runAsGroup: "0"
+          runAsUser: "0"
+          ttyEnabled: true
+          workingDir: "/home/jenkins/agent"
+        id: "15343ec5-6d35-4234-80cd-8a9e25d2f083"
+        idleMinutes: 120
+        idleMinutesStr: "120"
+        label: "dind"
+        name: "dind"
+        namespace: "jenkins"
+        runAsGroup: "0"
+        runAsUser: "0"
+        serviceAccount: "jenkins-1"
+        slaveConnectTimeout: 100
+        slaveConnectTimeoutStr: "100"
+        volumes:
+        - emptyDirVolume:
+            memory: false
+            mountPath: "/var/lib/docker"
+        yamlMergeStrategy: "override"
+      - containers:
+        - image: "artifactory.build.dlt/docker-local/jenkins-slave-for-grid:4.7-1"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          privileged: true
+          resourceLimitMemory: "4Gi"
+          resourceRequestCpu: "200m"
+          resourceRequestMemory: "4Gi"
+          ttyEnabled: true
+          workingDir: "/home/jenkins/agent"
+        id: "7a1578fd-8d90-4956-967c-44d915aa7620"
+        label: "grid"
+        name: "grid"
+        namespace: "jenkins"
+        serviceAccount: "jenkins-1"
+        showRawYaml: false
+        slaveConnectTimeout: 100
+        slaveConnectTimeoutStr: "100"
+        volumes:
+        - emptyDirVolume:
+            memory: false
+            mountPath: "/var/lib/docker"
+        yamlMergeStrategy: "override"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+  disableRememberMe: false
+  disabledAdministrativeMonitors:
+  - "hudson.diagnosis.TooManyJobsButNoView"
+  - "OldData"
+  - "jenkins.security.QueueItemAuthenticatorMonitor"
+  - "jenkins.security.ResourceDomainRecommendation"
+  - "jenkins.diagnostics.ControllerExecutorsAgents"
+  labelAtoms:
+  - name: "aws"
+  - name: "default"
+  - name: "default-23w1m"
+  - name: "default-c15qv"
+  - name: "default-xpdld"
+  - name: "default-zr2rn"
+  - name: "dind"
+  - name: "dind-vmnkl"
+  - name: "grid"
+  - name: "grid-l3428"
+  - name: "master"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  noUsageStatistics: true
+  numExecutors: 2
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    azure:
+      cacheDuration: 0
+      clientId: "****"
+      clientSecret: "{AQAAABAAAAAwv8InCBRWDaDf+NLXHzhVZFz+Oii3Q3k29FKOe6fKsgCk3n6jX360NiVBQ+8rPfy6BH2JeehKmVwSV1Wn+iFnlw==}"
+      tenant: "****"
+  slaveAgentPort: 50000
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+  sSHD:
+    port: -1
+  scriptApproval:
+    approvedSignatures:
+    - "method groovy.lang.GroovyObject invokeMethod java.lang.String java.lang.Object"
+    - "new java.io.File java.lang.String"
+    - "staticMethod jenkins.model.Jenkins getInstance"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods write java.io.File\
+      \ java.lang.String"
+unclassified:
+  appInsightsGlobalConfig:
+    appInsightsEnabled: true
+  artifactoryBuilder:
+    jfrogInstances:
+    - artifactoryUrl: "https://artifactory.build.dlt/artifactory"
+      bypassProxy: false
+      connectionRetry: 3
+      deployerCredentialsConfig:
+        credentialsId: "ARTIFACTORY-1-JENKINS"
+        overridingCredentials: false
+        password: "{AQAAABAAAAAQ7yxATwZydzYp6PcgRo2B+3peck3e+ItXuEfurZ1wIcM=}"
+        username: "****"
+      deploymentThreads: 3
+      instanceId: "artifactory-1"
+      timeout: 300
+    jfrogPipelinesServer:
+      bypassProxy: false
+      connectionRetries: 3
+      credentialsConfig:
+        ignoreCredentialPluginDisabled: true
+        overridingCredentials: false
+        password: "{AQAAABAAAAAQzC+S7OHYSQIZlMoRZDzD86xsO5BAMHfNtLmee6rX/Ek=}"
+        username: "****"
+      timeout: 300
+    useCredentialsPlugin: true
+  bitbucketBuildStatusNotifier:
+    globalCredentialsId: "bitbucket-oauth-creds"
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        bitbucketJenkinsRootUrl: "https://bithook.build.dltapps.uk/"
+        credentialsId: "ARTIFACTORY-1-JENKINS"
+        enableCache: false
+        manageHooks: true
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  buildStepOperation:
+    enabled: false
+  buildTimestamp:
+    enableBuildTimestamp: true
+    pattern: "yyyy-MM-dd HH:mm:ss z"
+    timezone: "Etc/UTC"
+  defaultFolderConfiguration:
+    healthMetrics:
+    - worstChildHealthMetric:
+        recursive: true
+  email-ext:
+    adminRequiredForTemplateTesting: false
+    allowUnregisteredEnabled: false
+    charset: "UTF-8"
+    debugMode: false
+    defaultBody: |-
+      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+      Check console output at $BUILD_URL to view the results.
+    defaultContentType: "text/html"
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+    defaultTriggerIds:
+    - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
+    mailAccount:
+      smtpHost: "smtp-1.smtp"
+      smtpPassword: "{AQAAABAAAAAQf/6WPNx9R+Ze73QNG/Ebto35lukDg5+g5xealqePv2I=}"
+    maxAttachmentSize: -1
+    maxAttachmentSizeMb: -1
+    precedenceBulk: false
+    watchingEnabled: false
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://jenkins.build.dlt/github-webhook/"
+  gitSCM:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  globalDefaultFlowDurabilityLevel:
+    durabilityHint: PERFORMANCE_OPTIMIZED
+  globalLibraries:
+    libraries:
+    - defaultVersion: "master"
+      name: "ci-cd-library"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              credentialsId: "bitbucket-ssh-access"
+              id: "68d81b7b-8dbe-406b-b37b-8be27b18de5d"
+              remote: "git@bitbucket.org:dltappscouk/ci-cd-library.git"
+              traits:
+              - "gitBranchDiscovery"
+  hashicorpVault:
+    configuration:
+      engineVersion: 2
+      timeout: 60
+      vaultCredentialId: "k8s-default-token"
+      vaultUrl: "https://vault.build.dlt"
+  ivyBuildTrigger:
+    extendedVersionMatching: false
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "Jenkins Daemon <nobody@nowhere>"
+    url: "https://jenkins.build.dlt/"
+  mailer:
+    charset: "UTF-8"
+    smtpHost: "smtp-1.smtp"
+    smtpPort: "25"
+    useSsl: false
+    useTls: false
+  mavenModuleSet:
+    localRepository: "default"
+  notifyBitbucket:
+    considerUnstableAsSuccess: false
+    disableInprogressNotification: false
+    ignoreUnverifiedSsl: false
+    includeBuildNumberInKey: false
+    prependParentProjectKey: false
+  pollSCM:
+    pollingThreadCount: 10
+  publishConfluence:
+    sites:
+    - password: "{AQAAABAAAAAgt7PEBEGm8xbjtzuK/fxI4/C86CFojYe8NSf0xwucxS7gjryJUEcG26tGA1XJPZLR}"
+      url: "https://dltapps.atlassian.net/wiki/"
+      username: "shariful.akhter@dltapps.co.uk"
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: true
+    installations:
+    - credentialsId: "SONARQUBE_1"
+      name: "sonarqube-1"
+      serverUrl: "https://sonarqube.dltapi.uk"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+  timestamper:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+  warningsParsers:
+    consoleLogScanningPermitted: false
+  whitelist:
+    enabled: false
+tool:
+  allure:
+    installations:
+    - name: "allure"
+      properties:
+      - installSource:
+          installers:
+          - allureCommandlineInstaller:
+              id: "2.13.8"
+  customTool:
+    installations:
+    - name: "terraform"
+      properties:
+      - installSource:
+          installers:
+          - zip:
+              url: "https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip"
+    - name: "helm3"
+      properties:
+      - installSource:
+          installers:
+          - zip:
+              subdir: "linux-amd64"
+              url: "https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz"
+    - name: "fabric"
+      properties:
+      - installSource:
+          installers:
+          - zip:
+              url: "https://github.com/hyperledger/fabric/releases/download/v2.3.2/hyperledger-fabric-linux-amd64-2.3.2.tar.gz"
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  gradle:
+    installations:
+    - name: "default"
+      properties:
+      - installSource:
+          installers:
+          - gradleInstaller:
+              id: "7.0"
+  maven:
+    installations:
+    - name: "mvn"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.8.2"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+  nodejs:
+    installations:
+    - name: "node"
+      properties:
+      - installSource:
+          installers:
+          - nodeJSInstaller:
+              id: "14.0.0"
+              npmPackages: "newman newman-reporter-html"
+              npmPackagesRefreshHours: 72
+  snyk:
+    installations:
+    - name: "dltapps"
+      properties:
+      - installSource:
+          installers:
+          - snykInstaller:
+              updatePolicyIntervalHours: 24
+              version: "latest"
+  sonarRunnerInstallation:
+    installations:
+    - name: "default"
+      properties:
+      - installSource:
+          installers:
+          - sonarRunnerInstaller:
+              id: "4.6.0.2311"
