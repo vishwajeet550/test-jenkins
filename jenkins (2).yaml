@@ -1,0 +1,511 @@
+jenkins:
+  systemMessage: "This Jenkins is configured by Jenkins Configuration as Code"
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+        - assignments:
+          - "jenkins-001"
+          - "vishu"
+          name: "admin"
+          pattern: ".*"
+          permissions:
+          - "Job/Move"
+          - "Job/Build"
+          - "Lockable Resources/View"
+          - "Credentials/Delete"
+          - "Credentials/ManageDomains"
+          - "Lockable Resources/Unlock"
+          - "View/Create"
+          - "Agent/Configure"
+          - "Job/Read"
+          - "Credentials/Update"
+          - "Agent/Create"
+          - "Job/Delete"
+          - "Agent/Build"
+          - "View/Configure"
+          - "Metrics/HealthCheck"
+          - "Lockable Resources/Reserve"
+          - "Agent/Provision"
+          - "Metrics/ThreadDump"
+          - "SCM/Tag"
+          - "Job/Create"
+          - "Job/Discover"
+          - "Artifactory/Promote"
+          - "Credentials/View"
+          - "Agent/Connect"
+          - "Agent/Delete"
+          - "Run/Replay"
+          - "Agent/Disconnect"
+          - "Run/Delete"
+          - "Job/Cancel"
+          - "Artifactory/Release"
+          - "Overall/Read"
+          - "Run/Update"
+          - "Credentials/Create"
+          - "Overall/Administer"
+          - "View/Delete"
+          - "Job/Configure"
+          - "Metrics/View"
+          - "Job/Workspace"
+          - "View/Read"
+        - name: "vishu"
+          pattern: ".*"
+          permissions:
+          - "Job/Move"
+          - "Lockable Resources/View"
+          - "Credentials/ManageDomains"
+          - "Lockable Resources/Unlock"
+          - "View/Create"
+          - "Agent/Configure"
+          - "Job/Read"
+          - "Credentials/Update"
+          - "View/Configure"
+          - "Metrics/HealthCheck"
+          - "Lockable Resources/Reserve"
+          - "Agent/Provision"
+          - "Metrics/ThreadDump"
+          - "SCM/Tag"
+          - "Job/Discover"
+          - "Artifactory/Promote"
+          - "Credentials/View"
+          - "Agent/Connect"
+          - "Run/Replay"
+          - "Agent/Disconnect"
+          - "Artifactory/Release"
+          - "Overall/Read"
+          - "Job/Configure"
+          - "Metrics/View"
+          - "Job/Workspace"
+          - "View/Read"
+  clouds:
+  - kubernetes:
+      containerCap: 10
+      containerCapStr: "10"
+      jenkinsTunnel: "jenkins-1-agent.jenkins.svc.cluster.local:50000"
+      name: "kubernetes"
+      namespace: "jenkins"
+      serverUrl: "https://kubernetes.default"
+      skipTlsVerify: true
+      templates:
+      - containers:
+        - image: "artifactory.build.dlt/docker-local/jenkins-slave-dind:4.7-6"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          privileged: true
+          resourceLimitMemory: "4Gi"
+          resourceRequestCpu: "200m"
+          resourceRequestMemory: "4Gi"
+          ttyEnabled: true
+          workingDir: "/home/jenkins/agent"
+        id: "a2ed1aab-7597-4656-bbb5-b375841a3e0f"
+        idleMinutes: 120
+        idleMinutesStr: "120"
+        label: "default"
+        name: "default"
+        namespace: "jenkins"
+        serviceAccount: "jenkins-1"
+        showRawYaml: false
+        slaveConnectTimeout: 100
+        slaveConnectTimeoutStr: "100"
+        volumes:
+        - emptyDirVolume:
+            memory: false
+            mountPath: "/var/lib/docker"
+        yamlMergeStrategy: "override"
+      - containers:
+        - image: "artifactory.build.dlt/docker-local/jenkins-slave-dind:4.10-3"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          privileged: true
+          ttyEnabled: true
+          workingDir: "/home/jenkins/agent"
+        id: "3a419c9a-4e9d-4d10-a0c6-c053a6b53a5b"
+        idleMinutes: 120
+        idleMinutesStr: "120"
+        label: "aws"
+        name: "aws"
+        namespace: "jenkins"
+        serviceAccount: "jenkins-1-slave-aws"
+        volumes:
+        - emptyDirVolume:
+            memory: false
+            mountPath: "/var/lib/docker"
+        yamlMergeStrategy: "merge"
+      - containers:
+        - envVars:
+          - envVar:
+              key: "JAVA_OPTS"
+              value: "-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=900"
+          image: "artifactory.build.dlt/docker-local/jenkins-slave-dind:4.7-6"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          privileged: true
+          resourceLimitMemory: "8Gi"
+          resourceRequestCpu: "200m"
+          resourceRequestMemory: "8Gi"
+          runAsGroup: "0"
+          runAsUser: "0"
+          ttyEnabled: true
+          workingDir: "/home/jenkins/agent"
+        id: "15343ec5-6d35-4234-80cd-8a9e25d2f083"
+        idleMinutes: 120
+        idleMinutesStr: "120"
+        label: "dind"
+        name: "dind"
+        namespace: "jenkins"
+        runAsGroup: "0"
+        runAsUser: "0"
+        serviceAccount: "jenkins-1"
+        slaveConnectTimeout: 100
+        slaveConnectTimeoutStr: "100"
+        volumes:
+        - emptyDirVolume:
+            memory: false
+            mountPath: "/var/lib/docker"
+        yamlMergeStrategy: "override"
+      - containers:
+        - image: "artifactory.build.dlt/docker-local/jenkins-slave-for-grid:4.7-1"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          privileged: true
+          resourceLimitMemory: "4Gi"
+          resourceRequestCpu: "200m"
+          resourceRequestMemory: "4Gi"
+          ttyEnabled: true
+          workingDir: "/home/jenkins/agent"
+        id: "7a1578fd-8d90-4956-967c-44d915aa7620"
+        label: "grid"
+        name: "grid"
+        namespace: "jenkins"
+        serviceAccount: "jenkins-1"
+        showRawYaml: false
+        slaveConnectTimeout: 100
+        slaveConnectTimeoutStr: "100"
+        volumes:
+        - emptyDirVolume:
+            memory: false
+            mountPath: "/var/lib/docker"
+        yamlMergeStrategy: "override"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+  disableRememberMe: false
+  disabledAdministrativeMonitors:
+  - "hudson.diagnosis.TooManyJobsButNoView"
+  - "OldData"
+  - "jenkins.security.QueueItemAuthenticatorMonitor"
+  - "jenkins.security.ResourceDomainRecommendation"
+  - "jenkins.diagnostics.ControllerExecutorsAgents"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  noUsageStatistics: true
+  numExecutors: 2
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "jenkins-001"
+        name: "jenkins-001"
+        properties:
+        - preferredProvider:
+            providerId: "default"
+        - "timezone"
+        - mailer:
+            emailAddress: "jenkins-001@dlt.co"
+        - "apiToken"
+      - id: "vishu"
+        name: "vishu"
+        properties:
+        - preferredProvider:
+            providerId: "default"
+        - "timezone"
+        - mailer:
+            emailAddress: "vishu@dlt.co"
+  slaveAgentPort: 50000
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+  sSHD:
+    port: -1
+  scriptApproval:
+    approvedSignatures:
+    - "method groovy.lang.GroovyObject invokeMethod java.lang.String java.lang.Object"
+    - "new java.io.File java.lang.String"
+    - "staticMethod jenkins.model.Jenkins getInstance"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods write java.io.File\
+      \ java.lang.String"
+unclassified:
+  appInsightsGlobalConfig:
+    appInsightsEnabled: true
+  artifactoryBuilder:
+    jfrogInstances:
+    - artifactoryUrl: "https://artifactory.build.dlt/artifactory"
+      bypassProxy: false
+      connectionRetry: 3
+      deployerCredentialsConfig:
+        credentialsId: "ARTIFACTORY-1-JENKINS"
+        overridingCredentials: false
+        password: "{AQAAABAAAAAQ7yxATwZydzYp6PcgRo2B+3peck3e+ItXuEfurZ1wIcM=}"
+        username: "****"
+      deploymentThreads: 3
+      instanceId: "artifactory-1"
+      timeout: 300
+    jfrogPipelinesServer:
+      bypassProxy: false
+      connectionRetries: 3
+      credentialsConfig:
+        ignoreCredentialPluginDisabled: true
+        overridingCredentials: false
+        password: "{AQAAABAAAAAQzC+S7OHYSQIZlMoRZDzD86xsO5BAMHfNtLmee6rX/Ek=}"
+        username: "****"
+      timeout: 300
+    useCredentialsPlugin: true
+  bitbucketBuildStatusNotifier:
+    globalCredentialsId: "bitbucket-oauth-creds"
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        bitbucketJenkinsRootUrl: "https://bithook.build.dltapps.uk/"
+        credentialsId: "ARTIFACTORY-1-JENKINS"
+        enableCache: false
+        manageHooks: true
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  buildStepOperation:
+    enabled: false
+  buildTimestamp:
+    enableBuildTimestamp: true
+    pattern: "yyyy-MM-dd HH:mm:ss z"
+    timezone: "Etc/UTC"
+  defaultFolderConfiguration:
+    healthMetrics:
+    - worstChildHealthMetric:
+        recursive: true
+  email-ext:
+    adminRequiredForTemplateTesting: false
+    allowUnregisteredEnabled: false
+    charset: "UTF-8"
+    debugMode: false
+    defaultBody: |-
+      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+      Check console output at $BUILD_URL to view the results.
+    defaultContentType: "text/html"
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+    defaultTriggerIds:
+    - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
+    mailAccount:
+      smtpHost: "smtp-1.smtp"
+      smtpPassword: "{AQAAABAAAAAQf/6WPNx9R+Ze73QNG/Ebto35lukDg5+g5xealqePv2I=}"
+    maxAttachmentSize: -1
+    maxAttachmentSizeMb: -1
+    precedenceBulk: false
+    watchingEnabled: false
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://jenkins.build.dlt/github-webhook/"
+  gitSCM:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  globalDefaultFlowDurabilityLevel:
+    durabilityHint: PERFORMANCE_OPTIMIZED
+  globalLibraries:
+    libraries:
+    - defaultVersion: "master"
+      name: "ci-cd-library"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              credentialsId: "bitbucket-ssh-access"
+              id: "68d81b7b-8dbe-406b-b37b-8be27b18de5d"
+              remote: "git@bitbucket.org:dltappscouk/ci-cd-library.git"
+              traits:
+              - "gitBranchDiscovery"
+  hashicorpVault:
+    configuration:
+      engineVersion: 2
+      timeout: 60
+      vaultCredentialId: "k8s-default-token"
+      vaultUrl: "https://vault.build.dlt"
+  ivyBuildTrigger:
+    extendedVersionMatching: false
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "Jenkins Daemon <nobody@nowhere>"
+    url: "https://jenkins.build.dlt/"
+  mailer:
+    charset: "UTF-8"
+    smtpHost: "smtp-1.smtp"
+    smtpPort: "25"
+    useSsl: false
+    useTls: false
+  mavenModuleSet:
+    localRepository: "default"
+  notifyBitbucket:
+    considerUnstableAsSuccess: false
+    disableInprogressNotification: false
+    ignoreUnverifiedSsl: false
+    includeBuildNumberInKey: false
+    prependParentProjectKey: false
+  pollSCM:
+    pollingThreadCount: 10
+  publishConfluence:
+    sites:
+    - password: "{AQAAABAAAAAgt7PEBEGm8xbjtzuK/fxI4/C86CFojYe8NSf0xwucxS7gjryJUEcG26tGA1XJPZLR}"
+      url: "https://dltapps.atlassian.net/wiki/"
+      username: "shariful.akhter@dltapps.co.uk"
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: true
+    installations:
+    - credentialsId: "SONARQUBE_1"
+      name: "sonarqube-1"
+      serverUrl: "https://sonarqube.dltapi.uk"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+  timestamper:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+  warningsParsers:
+    consoleLogScanningPermitted: false
+tool:
+  allure:
+    installations:
+    - name: "allure"
+      properties:
+      - installSource:
+          installers:
+          - allureCommandlineInstaller:
+              id: "2.13.8"
+  customTool:
+    installations:
+    - name: "terraform"
+      properties:
+      - installSource:
+          installers:
+          - zip:
+              url: "https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip"
+    - name: "helm3"
+      properties:
+      - installSource:
+          installers:
+          - zip:
+              subdir: "linux-amd64"
+              url: "https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz"
+    - name: "fabric"
+      properties:
+      - installSource:
+          installers:
+          - zip:
+              url: "https://github.com/hyperledger/fabric/releases/download/v2.3.2/hyperledger-fabric-linux-amd64-2.3.2.tar.gz"
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  gradle:
+    installations:
+    - name: "default"
+      properties:
+      - installSource:
+          installers:
+          - gradleInstaller:
+              id: "7.0"
+  maven:
+    installations:
+    - name: "mvn"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.8.2"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+  nodejs:
+    installations:
+    - name: "node"
+      properties:
+      - installSource:
+          installers:
+          - nodeJSInstaller:
+              id: "14.0.0"
+              npmPackages: "newman newman-reporter-html"
+              npmPackagesRefreshHours: 72
+  snyk:
+    installations:
+    - name: "dltapps"
+      properties:
+      - installSource:
+          installers:
+          - snykInstaller:
+              updatePolicyIntervalHours: 24
+              version: "latest"
+  sonarRunnerInstallation:
+    installations:
+    - name: "default"
+      properties:
+      - installSource:
+          installers:
+          - sonarRunnerInstaller:
+              id: "4.6.0.2311"
