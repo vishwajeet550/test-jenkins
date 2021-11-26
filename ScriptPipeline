@@ -1,5 +1,5 @@
 node {
-  for(i=0; i<=5; i++) {
+  for(i=0; i<=3; i++) {
     stage("stage" + i) {
       echo "Inside the Stage" + i
     }
