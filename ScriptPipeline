@@ -1,7 +1,8 @@
 pipeline {
-  for(i=0; i<=5; i++) {
-    stage("stage" + i) {
-      echo "Inside the Stage" + i
+  agent any
+    for(i=0; i<=5; i++) {
+      stage("stage" + i) {
+        echo "Inside the Stage" + i
+      }
     }
-  }
 }
