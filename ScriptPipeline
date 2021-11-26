@@ -21,9 +21,9 @@ pipeline {
     }
     
     stage("Send Email") {
-        steps {
-            mail bcc: '', body: 'Pipeline build successfully!!', cc: '', from: '', replyTo: '', subject: 'Script Pipeline from Jenkins', to: 'vishwajeetkadam14@gmail.com'   
-        }
+      steps {
+        mail bcc: '', body: 'Scripted Pipeline is build Successful!!!', cc: '', from: '', replyTo: '', subject: 'Pipeline Status', to: 'vishwajeetkadam14@gmail.com'   
+      }
     }
     
   }
