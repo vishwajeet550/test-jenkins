@@ -1,1 +1,7 @@
-
+node {
+  for(i=0; i<=5; i++) {
+    stage("stage" + i) {
+      echo "Inside the Stage" + i
+    }
+  }
+}
