@@ -20,14 +20,6 @@ pipeline {
       }
     }
     
-    stage("Result") {
-      steps {
-          input("Do you want to capture result?")
-          junit'**/target/surefire-reports/TEST-*.xml'
-          archive 'target/*.jar'
-      }
-    }
-    
     stage("Send Email") {
         steps {
             mail bcc: '', body: 'Pipeline build successfully!!', cc: '', from: '', replyTo: '', subject: 'Script Pipeline from Jenkins', to: 'vishwajeetkadam14@gmail.com'   
