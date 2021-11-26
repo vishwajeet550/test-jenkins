@@ -1,6 +1,10 @@
 pipeline {
   agent any
   stages {
-    echo "Hello World"
+    stage('Compile') {
+      steps {
+          echo 'Compile the source code' 
+      }
     }
+  }
 }
