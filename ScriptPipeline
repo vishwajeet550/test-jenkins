@@ -1,8 +1,11 @@
 pipeline {
   agent any
-    for(i=0; i<=5; i++) {
-      stage("stage" + i) {
-        echo "Inside the Stage" + i
-      }
-    }
+     stages {
+        stage('Example Build') {
+            agent { docker 'maven:3.8.1-adoptopenjdk-11' } 
+            steps {
+                echo 'Hello, Maven'
+                sh 'mvn --version'
+            }
+        }
 }
